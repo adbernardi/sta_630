@@ -1,0 +1,154 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx} 
+\title{STA 630 - Homework 2}
+\author{Anthony Bernardi}
+\date{February 17th, 2025}
+\begin{document}
+\maketitle
+
+\section{Problem 1 - Hoff 3.10}
+
+Change of variables problem. Let $\phi = g(\theta)$ be a monotone function with an inverse h, such that $\theta =h(\psi)$. 
+
+If $p_{\theta}(\theta)$ is the density of $\theta$, then the density of $\psi$ is given by the following. 
+
+\begin{equation}
+p_{\psi}(\psi) = p_{\theta}(h(\psi))\left|\frac{d}{d\psi}h(\psi)\right| 
+\end{equation} 
+
+\subsection{Part A} 
+
+Let $\theta \sim beta(a,b)$, and let $\psi = log[\theta/(1-\theta)]$. Find the density of $\psi$ and plot it for the case where $a = b = 1$. 
+
+We will start by finding the density and finding the form of $h(\psi)$ in this case. 
+
+\begin{equation}
+\psi = g(\theta) = log\left[\frac{\theta}{1-\theta}\right] 
+\end{equation} 
+
+\begin{equation} 
+exp(log(\theta/(1-\theta))) = \theta/(1-\theta) = exp(\psi) 
+\end{equation} 
+
+\begin{equation} 
+\theta = \frac{exp(\psi)}{1+exp(\psi)} 
+\end{equation} 
+
+Now that we have the inverse, we can find its derivative and use this as the Jacobian in the change of variables formula. 
+
+\begin{equation} 
+h(\psi) = \frac{exp(\psi)}{1+exp(\psi)} 
+\end{equation} 
+
+\begin{equation} 
+\frac{d}{d\psi}h(\psi) = \frac{exp(\psi)}{(1+exp(\psi))^2} 
+\end{equation} 
+
+This comes from a straightforward application of the quotient rule. 
+
+Finally, we can plug this into the change of variables formula to get the density of $\psi$, considering that $\theta$ is beta-distributed with parameters a and b. 
+
+We'll first delineate the density of $\theta$ with the accompanying parameters before applying the change of variables formula. 
+
+\begin{equation}
+p_{\theta}(\theta) = \frac{\theta^{a-1}(1-\theta)^{b-1}}{B(a,b)} 
+\end{equation} 
+
+Where the denominator is, as typical, the beta function. 
+
+We can now write our density function with the change of variables formula, with respect to $\psi$. 
+
+\begin{equation}
+  p_{\theta}(h(\psi)) = \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}\left(\frac{exp(\psi)}{1 + exp(\psi)}\right)^{a-1}\left(1 - \frac{exp(\psi)}{1 + exp(\psi)}\right)^{b-1}\frac{exp(\psi)}{(1+exp(\psi))^2}
+\end{equation}
+
+Simplifying the density function allows us to put it in a more interpretable form. After cancellations, we get the following. 
+
+\begin{equation} 
+p_{\psi}(\psi) = \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}\frac{exp(\psi)}{1 + exp(\psi)}^{a + b}
+\end{equation}
+
+This is the density function of $\psi$ given that $\theta$ is beta-distributed with parameters a and b. 
+
+We can plot this density function using the following code, recognizing this as a beta density function. 
+
+Put another way, we recognize this as having a beta distribution with parameters a + 1 and b + 1. 
+
+Code and plot will go here\dots 
+
+\subsection{Part B} 
+
+Let $\theta \sim gamma(a,b)$. Let $\psi = log(\theta)$. Find the density of $\psi$. 
+
+We will do this problem in a very similar way, and start by finding the inverse function. 
+
+\begin{equation} 
+\psi = g(\theta) = log(\theta) 
+\end{equation} 
+
+\begin{equation} 
+\theta = exp(\psi) 
+\end{equation} 
+
+Here, $\theta = h(\psi)$, and we can find the derivative of this function. 
+
+\begin{equation} 
+\frac{d}{d\psi}h(\psi) = exp(\psi) 
+\end{equation} 
+
+We can now plug this into the change of variables formula to get the density of $\psi$, using the gamma distribution as our model. 
+
+\begin{equation} 
+  p_{\theta}(h(\psi)) = \frac{b^a}{\Gamma(a)}exp(\psi)^a \cdot exp(-b \cdot exp(\psi))  
+\end{equation} 
+
+After combining like terms, we get things in a more concise manner. 
+
+Code and plotting for the density function will go here\dots 
+
+\section{Problem 2 - Hoff 3.12}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
