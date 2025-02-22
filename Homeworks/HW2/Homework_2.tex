@@ -110,6 +110,369 @@ Code and plotting for the density function will go here\dots
 
 \section{Problem 2 - Hoff 3.12}
 
+\subsection{Part a}
+
+Let $Y \sim binomial(n, \theta)$, obtain Jeffreys' prior for $\theta$. 
+
+We will do this in the typical way, finding the square of the Fisher information. 
+
+We start by finding the likelihood, given by the following. 
+
+\begin{equation} 
+  L(\theta) = \binom{n}{y}\theta^{\sum y}(1-\theta)^{n - \sum y} 
+\end{equation} 
+
+We then find the log likelihood, given below. 
+
+\begin{equation} 
+  l(\theta) = \sum y \cdot log(\theta) + (n - \sum y) \cdot log(1 - \theta)
+\end{equation} 
+
+Taking the derivative of the log likelihood with respect to the parameter theta gives us the following. 
+
+\begin{equation}
+  \frac{d}{d\theta}l(\theta) = \frac{\sum y}{\theta} + n log(1 - \theta) - \sum y log(\theta) 
+\end{equation} 
+
+Taking the second derivative of the log likelihood with respect to the parameter theta gives us the following. 
+
+\begin{equation}
+  \frac{d^2}{d\theta^2}l(\theta) = -\frac{\sum y}{\theta^2} - \frac{n}{1 - \theta} - \frac{n - \sum y}{1 - \theta}
+\end{equation} 
+
+We can combine like terms and simplify to get the following. 
+
+\begin{equation}
+  \frac{d^2}{d\theta^2}l(\theta) = -\frac{\sum y}{\theta^2} + \frac{n - \sum y}{1 - \theta}^2  
+\end{equation} 
+
+The Fisher information is given by the expectation of the square of the second derivative of the log likelihood, which we can write as the following. 
+
+\begin{equation}
+  I(\theta) = -E\left[\frac{d^2}{d\theta^2}l(\theta)\right] = -E\left[-\frac{\sum y}{\theta^2} + \frac{n - \sum y}{1 - \theta}^2\right] 
+\end{equation} 
+
+Which we can simplify to the following. 
+
+\begin{equation}
+  I(\theta) = \frac{n}{\theta(1 - \theta)} 
+\end{equation} 
+
+The Jeffreys' prior is given by the square root of the Fisher information, which we can write as the following. 
+
+\begin{equation}
+  \pi(\theta) = \sqrt{\frac{n}{\theta(1 - \theta)}} 
+\end{equation} 
+
+This is the Jeffreys' prior for the binomial distribution. 
+
+\subsection{Part b} 
+
+Reparameterize the binomial sampling model with $\psi = log\left(\frac{\theta}{1 - \theta}\right)$. Obtain Jeffreys' prior for $\psi$. 
+
+As earlier, this starts with finding the inverse function, which we can write as the following. 
+
+\begin{equation}
+  \theta = \frac{exp(\psi)}{1 + exp(\psi)}
+\end{equation} 
+
+We then use the given density function to find the likelihood function, and eventually the log likelihood. 
+
+The density function is given by the following. 
+
+\begin{equation}
+  p(y | \psi) = \binom{n}{y}\left(exp(\psi y) \cdot (1 + exp(\psi))^{-n}\right)
+\end{equation}
+
+We use this to find the likelihood function. 
+
+\begin{equation}
+  L(\psi) = \binom{n}{y}\left(exp(n \psi \sum y) \cdot (1 + exp(\psi))^{-n}\right) 
+\end{equation} 
+
+This continues to the log likelihood. 
+
+\begin{equation}
+  l(\psi) = \sum y \cdot n \psi - n \cdot log(1 + exp(\psi)) 
+\end{equation}
+
+We can now take the derivative of the log likelihood with respect to the parameter $\psi$. 
+
+\begin{equation}
+  \frac{d}{d\psi}l(\psi) = n \sum y - n \cdot \frac{exp(\psi)}{1 + exp(\psi)} 
+\end{equation} 
+
+Taking the second derivative of the log likelihood with respect to the parameter $\psi$ gives us the following. 
+
+\begin{equation}
+  \frac{d^2}{d\psi^2}l(\psi) = -n \cdot \frac{exp(\psi)}{(1 + exp(\psi))^2} 
+\end{equation} 
+
+We now use this to get our Fisher information. 
+
+\begin{equation}
+  I(\psi) = -E\left[\frac{d^2}{d\psi^2}l(\psi)\right] = -E\left[-n \cdot \frac{exp(\psi)}{(1 + exp(\psi))^2}\right]
+\end{equation}
+
+\begin{equation}
+  I(\psi) = n \cdot E\left[\frac{exp(\psi)}{(1 + exp(\psi))^2}\right]
+\end{equation} 
+
+We then square root this to get the Jeffreys' prior. 
+
+\begin{equation}
+  \pi(\psi) = \sqrt{n \cdot \left[\frac{exp(\psi)}{(1 + exp(\psi))^2}\right]} 
+\end{equation} 
+
+This is the Jeffreys' prior for the binomial distribution reparameterized with $\psi$. 
+
+\subsection{Part c}
+
+Take the prior distribution and apply the change of variables formula to get the induced prior density for $\psi$. The density ought to be the same as the one derived in part b. 
+
+We can use the change of variables formula to get the induced prior density for $\psi$. 
+
+As before, we will start the change of variables formula by finding the function $h(\psi)$ and its derivative. 
+
+\begin{equation}
+  h(\psi) = \frac{exp(\psi)}{1 + exp(\psi)} 
+\end{equation} 
+
+\begin{equation}
+  \frac{d}{d\psi}h(\psi) = \frac{exp(\psi)}{(1 + exp(\psi))^2} 
+\end{equation} 
+
+We can now plug this into the change of variables formula to get the induced prior density for $\psi$, and match this up with our earlier example. 
+
+\begin{equation}
+  \pi(\psi) = \sqrt{n \cdot \left[\frac{exp(\psi)}{(1 + exp(\psi))^2}\right]} 
+\end{equation} 
+
+This is the induced prior density for $\psi$, and it matches up with the Jeffreys' prior derived in part b. 
+
+\section{Problem 3 - Hoff 5.1}
+
+Given the school files, use the following using the normal model. 
+
+Use the conjugate prior distribution, with the given parameters for mu, sigma, k, and v. 
+
+\subsection{Part a} 
+
+Find the posterior means and 95\% confidence intervals for the mean and standard deviation parameters. 
+
+The following R code was used to find the posterior means and 95\% confidence intervals for the mean and standard deviation parameters. 
+
+\begin{verbatim}
+# reading in the data 
+setwd('/home/adbucks/Downloads')
+school1 <- read.table("school1-1.dat.txt")
+head(school1)
+school2 <- read.table("school2.dat.txt")
+school3 <- read.table("school3.dat.txt")
+
+# read in the parameters for the posterior mean estimation 
+mu_0 <- 5
+var_0 <- 4
+k_0 <- 1
+gamma_0 <- 2
+
+# observed data 
+y1 <- school1$V1
+n <- length(y1)
+y1bar <- mean(y1)
+s21 <- var(y1)
+
+# posterior inference 
+kn <- k_0 + n
+gamma_n <- gamma_0 + n
+mu_n <- (k_0 * mu_0 + n*y1bar) / kn
+s2n <- (gamma_0*var_0 + (n-1) 
+* s21 + k_0*n*(y1bar - mu_0)^2/(kn))/(gamma_n)
+
+paste0("The Posterior mean is: " , round(mu_n,2))
+
+# repeating this for each school 
+y2 <- school2$V1
+n2 <- length(y2)
+y2bar <- mean(y2)
+s22 <- var(y2)
+
+kn2 <- k_0 + n2
+gamma_n2 <- gamma_0 + n2
+mu_n2 <- (k_0 * mu_0 + n2*y2bar) / kn2
+s2n2 <- (gamma_0*var_0 + (n2-1) *
+s22 + k_0*n2*(y2bar - mu_0)^2/(kn2))/(gamma_n2)
+
+paste0("The Posterior Mean for School 2 is: ",
+       round(mu_n2 , 2))
+
+
+#### school 3 
+y3 <- school3$V1
+n3 <- length(y3)
+y3bar <- mean(y3)
+s23 <- var(y3)
+
+kn3 <- k_0 + n3
+gamma_n3 <- gamma_0 + n3
+mu_n3 <- (k_0 * mu_0 + n3*y3bar) / kn3
+s2n3 <- (gamma_0*var_0 + (n3-1) *
+s23 + k_0*n3*(y3bar - mu_0)^2/(kn3))/(gamma_n3)
+
+paste0("The Posterior Mean for School 3 is: ",
+       round(mu_n3 , 2))
+
+# confidence intervals for each now 
+margin1 <- qt(0.975 , 
+              df = n - 1)*sqrt(s21)/sqrt(n)
+l1 <- mu_n - margin1
+u1 <- mu_n + margin1
+
+paste0("The 95% Confidence Interval for the mean is: ", 
+       "(" , round(l1,2), ", ", round(u1,2), ")")
+
+# now for the standard dev
+library(MKinfer)
+cisd1 <- sdCI(y1)
+
+# school 2
+margin2 <- qt(0.975 , 
+              df = n2 - 1)*sqrt(s22)/sqrt(n2)
+l2 <- mu_n2 - margin2
+u2 <- mu_n2 + margin2
+
+paste("The 95% Confidence Interval for the mean of
+      school 2 is: ", "(", round(l2,2) , ", ", 
+      round(u2,2), ")")
+
+(cisd2 <- sdCI(y2))
+
+# school 3 
+margin3 <- qt(0.975, 
+              df = n3 - 1)*sqrt(s23)/sqrt(n3)
+l3 <- mu_n3 - margin3
+u3 <- mu_n3 + margin3
+
+paste("The 95% Confidence Interval for the mean of 
+      school 3 is: ", "(", round(l3,2), ", ",
+      round(u3,2), ")")
+
+(cisd3 <- sdCI(y3))
+\end{verbatim} 
+
+This was done for each of the three schools, with the following results.
+ 
+\begin{verbatim}
+[1] "The Posterior mean is: 9.28"
+[1] "The Posterior Mean for School 2 is: 6.95"
+[1] "The Posterior Mean for School 3 is: 7.81"
+[1] "The 95% Confidence Interval for the mean is: (7.61,10.97)"
+[1] "The 95% Confidence Interval for the mean of school 2 is: (5.01 , 8.89)"
+[1] "The 95% Confidence Interval for the mean of school 3 is: (6.04 , 9.58)" 
+\end{verbatim} 
+
+We use the following output for the confidence intervals for the standard deviation. 
+
+\begin{verbatim} 
+> cisd1
+[1] 3.034 5.405 
+> cisd2
+[1] 3.469 6.348
+> cisd3
+[1] 2.876 5.524
+\end{verbatim} 
+
+\subsection{Part b}
+
+
+
+
+
+
+
+
+
+
+
+\section{Problem 4}
+
+Suppose $x_1, x_2, \dots, x_n$ is a random sample from an exponential distribution with mean $\frac{1}{\theta}$. 
+\subsection{Part a} 
+
+Derive Jeffreys' prior for $\theta$. 
+
+We will start by finding the likelihood function for the exponential distribution with the given mean. 
+
+\begin{equation}
+  L(\theta) = \theta^n \cdot exp(-\theta \sum x_i) 
+\end{equation} 
+
+We use this to then find the log likelihood. 
+
+\begin{equation}
+  l(\theta) = n \cdot log(\theta) - \theta \sum x_i 
+\end{equation} 
+
+We use this to take the derivative. 
+
+\begin{equation}
+  \frac{d}{d\theta}l(\theta) = \frac{n}{\theta} - \sum x_i 
+\end{equation} 
+
+We then take the second derivative. 
+
+\begin{equation}
+  \frac{d^2}{d\theta^2}l(\theta) = -\frac{n}{\theta^2} 
+\end{equation} 
+
+This then leads us to the Fisher information criteria. 
+
+\begin{equation}
+  I(\theta) = -E\left[-\frac{n}{\theta^2}\right] = \frac{n}{\theta^2} 
+\end{equation} 
+
+Taking the square root gives us the Jeffreys' prior. 
+
+\begin{equation}
+  \pi(\theta) = \sqrt{\frac{n}{\theta^2}} = \frac{\sqrt{n}}{\theta} 
+\end{equation} 
+
+This is the Jeffreys' prior for the exponential distribution from our prompt. 
+
+\subsection{Part b} 
+
+Derive the posterior distribution of $\theta$ using Jeffreys' prior. 
+
+We can start with taking our likelihood function, and implementing the Jeffreys' prior. 
+
+\begin{equation}
+  p(\theta | x) \propto \theta^n \cdot exp(-\theta \sum x_i) \cdot \frac{\sqrt{n}}{\theta} 
+\end{equation} 
+
+We can simplify this to the following. 
+
+\begin{equation}
+  p(\theta | x) \propto \theta^{n - 1} \cdot exp(-\theta \sum x_i) \cdot \sqrt{n} 
+\end{equation} 
+
+This is the posterior distribution of $\theta$ using Jeffreys' prior, which we can say is proportional to the above. 
+
+We will want to note that this follows the gamma distribution, with parameters $n, \sum x_i$. 
+
+\subsection{Part c} 
+
+Derive the predictive distribution of a future observation z. 
+
+\begin{equation}
+  p(z | x) = \int p(z | \theta) \cdot p(\theta | x) d\theta 
+\end{equation} 
+
+We note that this is the general form for the exponential, and we would proceed given the context of the problem in this way. 
+
+
+
+
+
 
 
 
