@@ -69,4 +69,43 @@ data$y <- as.numeric(data$y)
 kde <- density(data$y)
 plot(kde)
 
+# now we can try and implement the gibbs sampler with some 
+# pre-defined constraints 
+a_0 <- 1
+b_0 <- 1
+mu_0 <- 120
+tau_0 <- 200
+s_0 <- 1000
+rho_0 <- 10
+G <- 10000 # number of iterations 
+
+# we can start with the data 
+mean_x <- mean(data$y)
+var_x <- var(data$y)
+n_0 <- length(data$y)
+
+# we start with an initial beta value and then envoke our 
+# mixture model 
+set.seed(42)
+
+# setting up a parameter matrix 
+phi_4 <- matrix(nrow=G, ncol=3)
+phi_4[1,] <- c(mean_x, 1/var_x, rho_0)
+
+
+for (g in 1:G){
+  # generating initial values 
+  i <- 1 
+  beta_s <- rbeta(1, a_0, b_0)
+  i <- i + 1
+  p <- beta_s
+  
+  # updating mu 
+  mu_n <- rnorm(1, mu_0, s_0)
+  mu2_n <- rnorm(1, mu_0, s_0)
+  
+  # not sure how to incorporate the beta 
+  # and the actual mixture 
+  
+}
 

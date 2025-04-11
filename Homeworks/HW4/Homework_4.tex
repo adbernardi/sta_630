@@ -27,7 +27,7 @@ We will assume that $\sigma_{\alpha}^2$ is known, representing the variance of t
 
 Derive the full condition distributions for $\mu$, $\alpha_i$, and $\sigma_{\epsilon}^2$, as required to implement the Gibbs sampler. 
 
-We can copy this from the hand-written sheet later\dots 
+The answer to this question is included on the hand-written sheet. 
 
 \subsection{Part b} 
 
@@ -126,8 +126,81 @@ plot(kde)
 
 This deviates from the Gaussian in the sense that the symmetry is lacking and the tails are heavier, especially on the right half of the density plot. 
 
+We see the KDE plot in R below. 
+
+\includegraphics[scale=.75]{../../KDE_plot.png} 
+
 \subsection{Part b} 
 
+In this case, the distributions are listed on the handwritten sheet. 
+
+\subsection{Part c}
+
+With the given initial parameter values, implement a Gibbs sampler with at least 10,000 iterations. 
+
+We can use the min and max values for the theta values to account for the nature of the Gaussian mixed model. 
+
+Compute and plot the autocorrelation functions of the two theta values as well as their effecitve sample sizes. 
+
+Given the initial parameter values, we start to implement the Gibbs sampler with the following R code. 
+
+\begin{verbatim}
+# reading in the glucose data 
+setwd('/home/adbucks/Documents/sta_630/Homeworks/HW4/')
+data <- read.table('glucose.dat')
+colnames(data) <- "y"
+
+data$y <- as.numeric(data$y)
+# now can make our histogram or KDE of the data 
+kde <- density(data$y)
+plot(kde)
+
+# now we can try and implement the gibbs sampler with some 
+# pre-defined constraints 
+a_0 <- 1
+b_0 <- 1
+mu_0 <- 120
+tau_0 <- 200
+s_0 <- 1000
+rho_0 <- 10
+G <- 10000 # number of iterations 
+
+# we can start with the data 
+mean_x <- mean(data$y)
+var_x <- var(data$y)
+n_0 <- length(data$y)
+
+# we start with an initial beta value and then envoke our 
+# mixture model 
+set.seed(42)
+
+# setting up a parameter matrix 
+phi_4 <- matrix(nrow=G, ncol=3)
+phi_4[1,] <- c(mean_x, 1/var_x, rho_0)
+
+
+for (g in 1:G){
+  # generating initial values 
+  i <- 1 
+  beta_s <- rbeta(1, a_0, b_0)
+  i <- i + 1
+  p <- beta_s
+  
+  # updating mu 
+  mu_n <- rnorm(1, mu_0, s_0)
+  mu2_n <- rnorm(1, mu_0, s_0)
+  
+  # not sure how to incorporate the beta 
+  # and the actual mixture 
+  
+}
+\end{verbatim}
+
+I'm unsure as to how to implement the Gibbs sampler with regards to a mixture model. I think that a beta value will have to be sampled first, and then the theta values and finally the variance parameters and components. 
+
+Alternatively, we can initialize the Gibbs sampler by picking a naive p value of .5, and then using the Gibbs sampler to update the parameters of the beta distribution and the p value itself as it integrates with the Gaussian mixture model. 
+
+I know theoretically how this would work, but I'm not totally sure how to implement this with the Gaussian mixture model. 
 
 
 
