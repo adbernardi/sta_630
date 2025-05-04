@@ -96,6 +96,42 @@ gibbs <- function(data,
 Omega_est <- gibbs(proteins.c, p = p , n = n , Sigma = Sigma_obs)
 
 # can now do inference and move on to graphing from here
-Omega_post_mean <- apply(Omega_samples , c(1,2), mean) # not actually sure why
+Omega_post_mean <- apply(Omega_est , c(1,2), mean) # not actually sure why
 # the mean might not make sense here 
+
+# getting partial correlations as per the assignment 
+partial_corr <- -Omega_post_mean / sqrt(pmax(0, diag(Omega_post_mean) %o% diag(Omega_post_mean)))
+
+diag(partial_corr) <- 1
+
+# now can get into thresholding and graphing 
+# can change the threshold for differing effects 
+threshold <- 0.1
+adjacency_mat <- (abs(partial_corr) > threshold) * 1
+diag(adjacency_mat) <- 0
+
+# maybe a quick fix 
+adjacency_mat <- ifelse(adjacency_mat != 0 && adjacency_mat != 1, 0, adjacency_mat)
+
+library(igraph)
+# creating the actual graph object 
+g <- graph_from_adjacency_matrix(adjacency_mat , 
+                                 mode = "Undirected",
+                                 weighted = TRUE,
+                                 diag = FALSE)
+
+# labels created, now just ned to maybe make label font size
+# smaller and spread the nodes out somewhat 
+plot(g, vertex.label = colnames(proteins.c)) #seems to work!!
+
+library(ggplot2)
+# saving plot 
+ggsave("Conditional_Density_Network_Labeled.jpg", 
+       width = 10 , height = 10)
+
+#################################
+# MCMC diagnostics and further analysis 
+#################################
+
+library(coda)
 
