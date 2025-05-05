@@ -93,6 +93,8 @@ gibbs <- function(data,
 }
 
 # calling 
+set.seed(1870)
+
 Omega_est <- gibbs(proteins.c, p = p , n = n , Sigma = Sigma_obs)
 
 # can now do inference and move on to graphing from here
@@ -126,12 +128,25 @@ plot(g, vertex.label = colnames(proteins.c)) #seems to work!!
 
 library(ggplot2)
 # saving plot 
-ggsave("Conditional_Density_Network_Labeled.jpg", 
-       width = 10 , height = 10)
+
 
 #################################
 # MCMC diagnostics and further analysis 
 #################################
 
 library(coda)
+library(bayesplot)
+# can use gelman methods here?
+# a type of trace plot 
+# type conversion for diagnositcs 
+# have to drop the NAs before proceeding 
+Omega_est[is.na(Omega_est)] <- 0
+
+mcmc_trace(Omega_est)
+# need to change parameter names, so probably need to do
+# something with changing the column names to be in the 
+# same order as the actual proteins, like for the 
+# undirected graph
+
+
 
