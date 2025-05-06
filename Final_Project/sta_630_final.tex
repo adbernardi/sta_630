@@ -216,10 +216,11 @@ After completing the graph and establishing the Gibbs sampler, traditional MCMC 
 Diagnostic results from the Gibbs sampler can be found detailed by the above plots. 
 \pagebreak
 % place holder for plot 1 
+\bigskip
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\linewidth]{}
-    \caption{Caption}
+    \includegraphics[width=0.5\linewidth]{omega_trace1.png}
+    \caption{Trace Plots for Omega 1 Case Example}
     \label{fig:enter-label}
 \end{figure}
 
@@ -227,12 +228,12 @@ Diagnostic results from the Gibbs sampler can be found detailed by the above plo
 \pagebreak
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\linewidth]{}
-    \caption{Caption}
+    \includegraphics[width=0.5\linewidth]{omega_trace2.png}
+    \caption{Trace Plots for Omega 2 Case Example}
     \label{fig:enter-label}
 \end{figure}
 
-As evidenced by the plots, we found the mixing and convergence of the Markov Chain to be adequate, however further research and evaluation would be appropriate, for example with differing starting points or varying iterations and a fraction of the time used for the burn-in period. Comparison of various iteration lengths as well as burn-in, and even the necessity of a burn in period at all, in a type of cross-validation, we imagine would be fruitful for further analysis. 
+As evidenced by the plots, we found the mixing and convergence of the Markov Chain to be adequate as evidenced by trace plots from a few selections from the Precision matrix simulation, however further research and evaluation would be appropriate, for example with differing starting points or varying iterations and a fraction of the time used for the burn-in period. Comparison of various iteration lengths as well as burn-in, and even the necessity of a burn in period at all, in a type of cross-validation, we imagine would be fruitful for further analysis. 
 
 Given the convergence of the Markov Chain as well as the diagnostic plots and undirected graph, we decided that variational inference would not be appropriate in this case. 
 
